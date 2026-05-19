@@ -26,7 +26,7 @@ USER user
 
 # 8. Configure ports and runtime environment variables
 EXPOSE 7860
-ENV OLLAMA_HOST=127.0.0.1:11434
+ENV OLLAMA_HOST=http://127.0.0.1:11434
 ENV OLLAMA_KEEP_ALIVE=-1
 ENV HOME=/tmp
 
