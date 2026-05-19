@@ -15,5 +15,4 @@ ollama pull llama3.2:1b
 
 # Launch your public-facing FastAPI server on port 7860
 echo "Launching FastAPI Engine..."
-# exec uvicorn api:app --host 0.0.0.0 --port 7860
-exec uvicorn app:app --host 0.0.0.0 --port 7860 --proxy-headers --forwarded-allow-ips="*"
+exec uvicorn api:app --host 0.0.0.0 --port 7860 --proxy-headers --forwarded-allow-ips="*"
