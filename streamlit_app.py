@@ -1,6 +1,9 @@
 import streamlit as st
 import requests
 
+# ---------------- CONFIGURATION ----------------
+# Global live production backend endpoint
+BACKEND_URL = "https://aasthamewar-ai-research-mentor-backend.hf.space"
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
@@ -55,8 +58,9 @@ if not st.session_state.paper_uploaded:
 
         with st.spinner("Processing and parsing paper sections..."):
             try:
+                
                 response = requests.post(
-                    "http://127.0.0.1:8000/upload-paper",
+                    f"{BACKEND_URL}/upload-paper",
                     files=files
                 )
                 
@@ -133,7 +137,7 @@ if st.session_state.paper_uploaded:
         with st.spinner("Analyzing context and generating answer..."):
             try:
                 response = requests.post(
-                    "http://127.0.0.1:8000/ask",
+                    f"{BACKEND_URL}/ask",
                     json={
                         "question": query
                     }
