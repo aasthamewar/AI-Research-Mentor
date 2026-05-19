@@ -3,6 +3,7 @@ import shutil
 import gc
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 # Import your core pipeline modules
 from pdf_reader import extract_paper_text
@@ -15,7 +16,18 @@ from reranker import rerank_chunks
 from rag_pipeline import generate_rag_answer
 from memory import add_to_memory
 
-app = FastAPI(title="AI Research Mentor Backend")
+app = FastAPI(
+    title="AI Research Mentor Backend",
+    root_path=""
+    )
+# Ensure CORS is completely wide open to accept requests from Streamlit Cloud
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Ensure a temporary directory exists to hold uploaded papers if needed
 UPLOAD_DIR = "papers"

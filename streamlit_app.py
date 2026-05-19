@@ -3,7 +3,7 @@ import requests
 
 # ---------------- CONFIGURATION ----------------
 # Global live production backend endpoint
-BACKEND_URL = "https://aasthamewar-ai-research-mentor-backend.hf.space/+"
+BACKEND_URL = "https://aasthamewar-ai-research-mentor-backend.hf.space"
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
