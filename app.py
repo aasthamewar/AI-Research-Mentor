@@ -17,9 +17,7 @@ from rag_pipeline import generate_rag_answer
 from memory import add_to_memory
 
 app = FastAPI(
-    title="AI Research Mentor Backend",
-    root_path=""
-    )
+    title="AI Research Mentor Backend")
 # Ensure CORS is completely wide open to accept requests from Streamlit Cloud
 app.add_middleware(
     CORSMiddleware,
