@@ -10,21 +10,26 @@ RUN apt-get update && apt-get install -y \
 # 3. Pull the official Ollama binary straight from their core image
 COPY --from=ollama/ollama:latest /usr/bin/ollama /usr/bin/ollama
 
-# 4. Create and set the workspace directory
+# 4. Create a non-root user for Hugging Face compatibility and set up the workspace
+RUN useradd -m -u 1000 user
 WORKDIR /app
 
-# 5. Handle Python library dependencies
+# 5. Handle Python library dependencies (helps with build caching)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 6. Copy application files into the build context
-COPY . .
+# 6. Copy application files and hand over ownership to the non-root user
+COPY --chown=user . .
 
-# 7. Configure ports for Hugging Face Spaces (HF expects port 7860)
+# 7. Switch to the non-root user context
+USER user
+
+# 8. Configure ports and runtime environment variables
 EXPOSE 7860
 ENV OLLAMA_HOST=127.0.0.1:11434
 ENV OLLAMA_KEEP_ALIVE=-1
+ENV HOME=/tmp
 
-# 8. Use an entrypoint script to launch Ollama and FastAPI concurrently
+# 9. Ensure entrypoint is executable and pass control to it
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
