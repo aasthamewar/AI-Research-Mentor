@@ -27,7 +27,7 @@ class QueryRequest(BaseModel):
 
 
 # ---------------- 1. UPLOAD & INDEX ENDPOINT ----------------
-@app.post("/upload-paper")
+@app.post("/upload-paper/")
 async def upload_paper(file: UploadFile = File(...)):
     """
     Receives a PDF file, saves it, cleans it, parses it by sections, 
@@ -89,7 +89,7 @@ async def upload_paper(file: UploadFile = File(...)):
 
 
 # ---------------- 2. CONVERSATIONAL QUERY ENDPOINT ----------------
-@app.post("/ask")
+@app.post("/ask/")
 def ask_question(request: QueryRequest):
     """
     Takes a query, retrieves context from ChromaDB, reranks it,
