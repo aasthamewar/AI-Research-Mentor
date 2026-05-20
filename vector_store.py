@@ -1,7 +1,10 @@
 import chromadb
 
+import os
+
+os.makedirs("/tmp/chroma_db", exist_ok=True)
 # Create ChromaDB client
-client = chromadb.PersistentClient(path="./chroma_db")
+client = chromadb.PersistentClient(path="/tmp/chroma_db")
 
 # Create collection
 collection = client.get_or_create_collection(
@@ -16,10 +19,11 @@ def store_embeddings(chunks, embeddings, document_name, metadata):
         collection.add(
             documents=[chunk],
             embeddings=[embedding.tolist()],
-            metadatas=[{
-                "document": document_name,
-                "chunk_index": i
-            }],
+            # metadatas=[{
+            #     "document": document_name,
+            #     "chunk_index": i
+            # }],
+            metadatas=[[metadata[i]]],
             ids=[f"{document_name}_chunk_{i}"]
         )
 
