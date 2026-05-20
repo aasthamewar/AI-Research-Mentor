@@ -29,7 +29,7 @@ app.add_middleware(
 )
 
 # Ensure a temporary directory exists to hold uploaded papers if needed
-UPLOAD_DIR = "papers"
+UPLOAD_DIR = "/tmp/papers"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
