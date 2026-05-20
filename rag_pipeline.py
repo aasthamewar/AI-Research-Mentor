@@ -19,7 +19,7 @@ def generate_rag_answer(query, retrieved_chunks, retrieved_metadata):
         source_info = f"Source: {metadata['document']}{section_info}"
 
         formatted_chunk = (
-            f"{source_info}\n{chunk[:700]}"
+            f"{source_info}\n{chunk[:250]}"
         )
 
         formatted_chunks.append(formatted_chunk)
@@ -89,7 +89,10 @@ def generate_rag_answer(query, retrieved_chunks, retrieved_metadata):
                 'role': 'user',
                 'content': prompt
             }
-        ]
+        ],
+        options= {
+            "num_predict": 200
+        }
     )
 
     return response['message']['content']

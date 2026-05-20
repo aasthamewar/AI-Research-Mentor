@@ -31,7 +31,7 @@ def store_embeddings(chunks, embeddings, document_name, metadata):
 
     print("\nEmbeddings stored successfully.")
 
-def search_similar_chunks(query, n_results=5):
+def search_similar_chunks(query, n_results=3):
 
     results = collection.query(
         query_texts=[query],

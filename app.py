@@ -131,11 +131,13 @@ def ask_question(request: QueryRequest):
         initial_metadata = results['metadatas'][0]
 
         # 2. Rerank
-        retrieved_chunks, retrieved_metadata = rerank_chunks(
-            query,
-            initial_chunks,
-            initial_metadata
-        )
+        # retrieved_chunks, retrieved_metadata = rerank_chunks(
+        #     query,
+        #     initial_chunks,
+        #     initial_metadata
+        # )
+        retrieved_chunks = initial_chunks[:3]
+        retrieved_metadata = initial_metadata[:3]
 
         # 3. Generate answer
         answer = generate_rag_answer(
