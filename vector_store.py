@@ -14,18 +14,20 @@ collection = client.get_or_create_collection(
 
 def store_embeddings(chunks, embeddings, document_name, metadata):
 
-    for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
+    processed_embeddings = [
+        emb.tolist() if hasattr(emb, "tolist") else emb
+        for emb in embeddings
+    ]
 
-        collection.add(
-            documents=[chunk],
-            embeddings=[embedding.tolist()],
-            # metadatas=[{
-            #     "document": document_name,
-            #     "chunk_index": i
-            # }],
-            metadatas=[[metadata[i]]],
-            ids=[f"{document_name}_chunk_{i}"]
-        )
+    collection.add(
+        documents=chunks,
+        embeddings=processed_embeddings,
+        metadatas=metadata,
+        ids=[
+            f"{document_name}_chunk_{i}"
+            for i in range(len(chunks))
+        ]
+    )
 
     print("\nEmbeddings stored successfully.")
 
