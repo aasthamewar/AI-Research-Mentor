@@ -16,9 +16,10 @@ from reranker import rerank_chunks
 from rag_pipeline import generate_rag_answer
 from memory import add_to_memory
 
-app = FastAPI(
-    title="AI Research Mentor Backend")
-# Ensure CORS is completely wide open to accept requests from Streamlit Cloud
+# 1. Initialize App
+app = FastAPI(title="AI Research Mentor Backend")
+
+# 2. Add CORSMiddleware immediately after app creation
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -34,6 +35,11 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 class QueryRequest(BaseModel):
     question: str
+
+
+@app.get("/")
+def home():
+    return {"message": "Research Paper MCP API Running"}
 
 
 # ---------------- 1. UPLOAD & INDEX ENDPOINT ----------------
@@ -89,7 +95,10 @@ async def upload_paper(file: UploadFile = File(...)):
         del text, sections, all_chunks, embeddings, all_metadata
         gc.collect()
 
-        return {"status": "success", "message": f"'{file.filename}' processed and indexed successfully."}
+        return {
+            "status": "success", 
+            "message": f"'{file.filename}' processed and indexed successfully."
+        }
 
     except Exception as e:
         # Clean up file if something goes wrong mid-process
@@ -121,7 +130,7 @@ def ask_question(request: QueryRequest):
         initial_chunks = results['documents'][0]
         initial_metadata = results['metadatas'][0]
 
-        # 2. Rerank (Fixed: capturing both return parameters to prevent ValueError)
+        # 2. Rerank
         retrieved_chunks, retrieved_metadata = rerank_chunks(
             query,
             initial_chunks,
