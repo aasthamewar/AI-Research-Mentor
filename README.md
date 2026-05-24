@@ -14,6 +14,10 @@ Instead of overwhelming users with the entire paper at once, the system allows u
 
 The system uses Retrieval-Augmented Generation (RAG), ChromaDB, local LLM inference with Ollama, and a Streamlit frontend.
 
+## Below is the workflow
+<img width="1536" height="1024" alt="AI_Research Diagram" src="https://github.com/user-attachments/assets/fadfc637-fcfd-4e84-b907-4952e81dd320" />
+
+
 ---
 
 # Project Goal
