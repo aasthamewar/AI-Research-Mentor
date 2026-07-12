@@ -21,15 +21,19 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 6. Copy application files and hand over ownership to the non-root user
 COPY --chown=user . .
 
-# 7. Switch to the non-root user context
+# 7. FIX: Make entrypoint executable WHILE STILL ROOT before switching users
+RUN chmod +x entrypoint.sh
+
+# 8. Switch to the non-root user context
 USER user
 
-# 8. Configure ports and runtime environment variables
+# 9. Configure ports and runtime environment variables
 EXPOSE 7860
-ENV OLLAMA_HOST=http://127.0.0.1:11434
+ENV OLLAMA_HOST=127.0.0.1:11434
 ENV OLLAMA_KEEP_ALIVE=-1
+ENV OLLAMA_NUM_PARALLEL=1
+ENV OLLAMA_MAX_LOADED_MODELS=1
 ENV HOME=/tmp
 
-# 9. Ensure entrypoint is executable and pass control to it
-RUN chmod +x entrypoint.sh
+# 10. Pass control to the entrypoint script
 ENTRYPOINT ["./entrypoint.sh"]
