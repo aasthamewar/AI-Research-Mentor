@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 # 3. Pull the official Ollama binary straight from their core image
 COPY --from=ollama/ollama:latest /usr/bin/ollama /usr/bin/ollama
+COPY --from=ollama/ollama:latest /usr/lib/ollama /usr/lib/ollama
 
 # 4. Create a non-root user for Hugging Face compatibility and set up the workspace
 RUN useradd -m -u 1000 user
