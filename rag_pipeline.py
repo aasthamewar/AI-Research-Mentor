@@ -19,7 +19,7 @@ def generate_rag_answer(query, retrieved_chunks, retrieved_metadata):
         source_info = f"Source: {metadata['document']}{section_info}"
 
         formatted_chunk = (
-            f"{source_info}\n{chunk[:250]}"
+            f"{source_info}\n{chunk}"
         )
 
         formatted_chunks.append(formatted_chunk)
