@@ -123,12 +123,19 @@ if st.session_state.paper_uploaded:
 
 
     # ---------------- CUSTOM QUESTION ----------------
-    st.markdown("---")
-    custom_question = st.text_input(
-        "Or ask your own custom research question:"
-    )
+    # st.markdown("---")
+    # custom_question = st.text_input(
+    #     "Or ask your own custom research question:"
+    # )
 
-    if custom_question:
+    # if custom_question:
+    #     query = custom_question
+    st.markdown("---")
+    with st.form("custom_question_form", clear_on_submit=True):
+        custom_question = st.text_input("Or ask your own custom research question:")
+        custom_submit = st.form_submit_button("Ask")
+
+    if custom_submit and custom_question:
         query = custom_question
 
 
