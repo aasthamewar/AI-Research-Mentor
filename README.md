@@ -204,9 +204,7 @@ Asks a question against the currently indexed paper(s).
 
 Contributions, issues, and feature requests are welcome. Feel free to open an issue or submit a pull request.
 
-## 📄 License
 
-This project is open source. Add your preferred license (MIT recommended) here.
 
 ---
 
